@@ -6,7 +6,7 @@
 #eff  #efficiency of transfer from mother to child 5 or 10
 #protective_thresh  #protective threshold (40)
 
-wane_func <- function(ab_m0=33, g_age_vax=30*7, g_age_birth=38*7, half_life=41, eff=5, protective_thresh=40) {
+wane_func <- function(ab_m0, g_age_vax, g_age_birth, half_life, eff, protective_thresh) {
 
   #Ab levels in mom, indexed by time since vaccination
   tvax <- g_age_birth - g_age_vax
@@ -24,4 +24,6 @@ wane_func <- function(ab_m0=33, g_age_vax=30*7, g_age_birth=38*7, half_life=41, 
   Ab_t <- Ab_Cb*0.5^(t_birth/half_life)
   
   age_unprotected <- t_birth[min(which(Ab_t<protective_thresh))]
+  return(age_unprotected)
 }
+

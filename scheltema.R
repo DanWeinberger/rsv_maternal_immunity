@@ -27,14 +27,17 @@ plot(Ab_t)
 abline(h=protective_thresh)
 abline(v=age_unprotected)
 
-
+#Fit age distribution in RESCEU and then simulate from that
 # Age distributon of cases #Increase shape to shift distribution; scale to change spread on x axis
+#could also use a gamma
 set.seed(123)
-age_dist_cases <- rweibull(n=1000, scale=180, shape=1.2)
-hist(age_dist_cases, breaks=100)
-abline(v=age_unprotected)
+fw <- readRDS('resceu.weibull.rds')
 
-#What propotion of the cases are preventable?
+age_dist_cases <- 7*rweibull(n=1000, scale=fw$estimate['scale'], shape=fw$estimate['shape'])
+hist(age_dist_cases, breaks=100)
+abline(v=age_unprotected, col='red')
+
+#What proportion of the cases are preventable?
 mean(age_dist_cases < age_unprotected)
 
 
